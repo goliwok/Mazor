@@ -44,19 +44,19 @@ t_map	*draw_path(t_map *my_map, int larg, int haut)
   my_map = init_draw_path(my_map, larg, haut);
   srand(time(NULL));
   while (my_map->x != larg-1 || my_map->y != haut-1)
-    {
-      nb_rand = rand()%4+1;
-      my_map->map[my_map->y][my_map->x] = 'O';
-      if (check_nb_posr(my_map, haut, larg) > 1)
-	dir = my_map->save[i++]->dir;
-      else
-	{
-	  dir = check_posr(nb_rand, my_map, haut, larg);
-	  while (dir == 0)
-	    dir = check_posr(nb_rand = rand()%4+1, my_map, haut, larg);
-	}
-      my_map = change_posr(my_map, dir);
-    }
+  {
+    nb_rand = rand()%4+1;
+    my_map->map[my_map->y][my_map->x] = 'O';
+    if (check_nb_posr(my_map, haut, larg) > 1)
+	    dir = my_map->save[i++]->dir;
+    else
+	  {
+	    dir = check_posr(nb_rand, my_map, haut, larg);
+	    while (dir == 0)
+	      dir = check_posr(nb_rand = rand()%4+1, my_map, haut, larg);
+	  }
+    my_map = change_posr(my_map, dir);
+  }
   my_map->map[haut-1][larg-1] = 'O';
   print_labr(my_map, larg, haut);
   return (my_map);

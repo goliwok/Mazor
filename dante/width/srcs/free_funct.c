@@ -9,7 +9,7 @@
 */
 
 #include	<stdlib.h>
-#include	"../my.h"
+#include	"../my_r.h"
 
 void	free_tab(int larg, int haut, char **map)
 {
@@ -17,10 +17,10 @@ void	free_tab(int larg, int haut, char **map)
 
   i = 0;
   while (i != haut)
-    {
-      free(map[i]);
-      i++;
-    }
+  {
+    free(map[i]);
+    i++;
+  }
   free(map);
 }
 
@@ -30,10 +30,10 @@ void	free_tab_int(int larg, int haut, int **map)
 
   i = 0;
   while (i != haut)
-    {
-      free(map[i]);
-      i++;
-    }
+  {
+    free(map[i]);
+    i++;
+  }
   free(map);
 }
 
@@ -43,24 +43,17 @@ void	free_struct(t_map *my_map, int larg, int haut)
 
   i = 0;
   while (i != (larg*haut))
-    {
-      free(my_map->save[i]);
-      i++;
-    }
+  {
+    free(my_map->save[i]);
+    i++;
+  }
   free (my_map->save);
 }
 
 void	free_all(t_map	*my_map, int larg, int haut)
-  {
-    int		map_larg;
-    int		map_haut;
-
-    map_larg = (larg * 2) + 1;
-    map_haut = (haut * 2) + 1;
-    free_tab(map_larg, map_haut, my_map->map);
-    free_tab_int(map_larg, map_haut, my_map->gen->status);
-    free_tab_int(map_larg, map_haut, my_map->seen);
-    free_struct(my_map, larg, haut);
-    free(my_map->gen);
-    free(my_map);
-  }
+{
+  free_tab(larg, haut+1, my_map->map);
+  free_tab_int(larg, haut+1, my_map->seen);
+  free_struct(my_map, larg+1, haut);
+  free(my_map);
+}

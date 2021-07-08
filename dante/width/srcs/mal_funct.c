@@ -18,10 +18,10 @@ void	*my_mallocr(size_t size)
 
   str = malloc(size);
   if (str == NULL)
-    {
-      write(1, "error with malloc\n", 18);
-      exit (-1);
-    }
+  {
+    write(1, "error with malloc\n", 18);
+    exit (-1);
+  }
   return (str);
 }
 
@@ -32,11 +32,11 @@ char	**malloc_tabr(int larg, int haut, char **map)
   i = 0;
   map = my_mallocr(sizeof(char*) * (haut));
   while (i != haut)
-    {
-      map[i] = NULL;
-      map[i] = my_mallocr(sizeof(char) * (larg));
-      i++;
-    }
+  {
+    map[i] = NULL;
+    map[i] = my_mallocr(sizeof(char) * (larg));
+    i++;
+  }
   return (map);
 }
 
@@ -48,17 +48,17 @@ int	**mal_tab_intr(int larg, int haut, int **map)
   i = 0;
   map = my_mallocr(sizeof(int*) * (haut));
   while (i != haut)
-    {
-      j = 0;
-      map[i] = NULL;
-      map[i] = my_mallocr(sizeof(int) * (larg));
-      while (j != larg)
-	{
-	  map[i][j] = 0;
-	  j++;
-	}
-      i++;
-    }
+  {
+    j = 0;
+    map[i] = NULL;
+    map[i] = my_mallocr(sizeof(int) * (larg));
+    while (j != larg)
+	  {
+	    map[i][j] = 0;
+	    j++;
+	  }
+    i++;
+  }
   return (map);
 }
 
@@ -69,10 +69,10 @@ t_map	*malloc_structr(t_map *my_map, int larg, int haut)
   i = 0;
   my_map->save = my_mallocr(sizeof(t_save*) * (larg*haut));
   while (i != (larg*haut))
-    {
-      my_map->save[i] = my_mallocr(sizeof(t_save) + 2);
-      i++;
-    }
+  {
+    my_map->save[i] = my_mallocr(sizeof(t_save) + 2);
+    i++;
+  }
   return (my_map);
 }
 

@@ -9,7 +9,7 @@
 */
 
 #include	<stdlib.h>
-#include	"../my_r.h"
+#include	"../my.h"
 
 void	free_tab(int larg, int haut, char **map)
 {
@@ -51,9 +51,16 @@ void	free_struct(t_map *my_map, int larg, int haut)
 }
 
 void	free_all(t_map	*my_map, int larg, int haut)
-  {
-    free_tab(larg, haut+1, my_map->map);
-    free_tab_int(larg, haut+1, my_map->seen);
-    free_struct(my_map, larg+1, haut);
-    free(my_map);
-  }
+{
+  int		map_larg;
+  int		map_haut;
+
+  map_larg = (larg * 2) + 1;
+  map_haut = (haut * 2) + 1;
+  free_tab(map_larg, map_haut, my_map->map);
+  free_tab_int(map_larg, map_haut, my_map->gen->status);
+  free_tab_int(map_larg, map_haut, my_map->seen);
+  free_struct(my_map, larg, haut);
+  free(my_map->gen);
+  free(my_map);
+}

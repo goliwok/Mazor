@@ -7,7 +7,7 @@
 ## Started on  Sun Jan 17 23:54:41 2016 Henry Fumery (fumery_h)
 ## Last update Sun Jan 17 23:54:41 2016 Henry Fumery (fumery_h)
 ##
-DIR1=  ./generateur/srcs/
+DIR1=  ./generator/srcs/
 SRCS1=	$(DIR1)dante_lab.c 		\
 	$(DIR1)mal_funct.c		\
 	$(DIR1)init_lab.c		\
@@ -17,7 +17,7 @@ SRCS1=	$(DIR1)dante_lab.c 		\
 	$(DIR1)parf_lab_funct.c 	\
 	$(DIR1)impa_lab_funct.c 	\
 
-DIR2=	./largeur/srcs/
+DIR2=	./width/srcs/
 SRCS2=	$(DIR2)resolve.c 		\
 	$(DIR2)mal_funct.c		\
 	$(DIR2)get_lab.c		\
@@ -26,12 +26,12 @@ SRCS2=	$(DIR2)resolve.c 		\
 	$(DIR2)draw_path.c 		\
 	$(DIR2)free_funct.c		\
 
-CC= gcc
+CC= 	gcc
 OBJ1=	$(SRCS1:.c=.o)
 OBJ2=	$(SRCS2:.c=.o)
 
-NAME1=	./generateur/generateur
-NAME2=	./largeur/solver
+NAME1=	./generator/generator
+NAME2=	./width/solver
 
 all:	$(NAME1) $(NAME2)
 

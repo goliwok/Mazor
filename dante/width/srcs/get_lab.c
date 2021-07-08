@@ -18,10 +18,10 @@ char	*get_cara(char *get, char *put, int size)
 
   x = 0;
   while (x != size)
-    {
-      get[x] = put[x];
-      x++;
-    }
+  {
+    get[x] = put[x];
+    x++;
+  }
   return (get);
 }
 
@@ -39,10 +39,10 @@ t_map	*get_lab(t_map *my_map, FILE *fd, char *file_name, int larg)
   if (fd == NULL)
     exit(EXIT_FAILURE);
   while ((read = getline(&line, &len, fd)) != -1)
-    {
-      my_map->map[cmp] = get_cara(my_map->map[cmp], line, larg);
-      cmp++;
-    }
+  {
+    my_map->map[cmp] = get_cara(my_map->map[cmp], line, larg);
+    cmp++;
+  }
   if (line)
     free(line);
   fclose(fd);
@@ -59,10 +59,10 @@ t_map	*get_content(char *line, FILE *fd, size_t len, char *file_name)
   my_map = NULL;
   larg = 0;
   while ((read = getline(&line, &len, fd)) != -1)
-    {
-      larg++;
-      haut = (int)read;
-    }
+  {
+    larg++;
+    haut = (int)read;
+  }
   my_map = alloc_allr(my_map, larg, haut);
   my_map->y = haut-1;
   my_map->x = larg;
