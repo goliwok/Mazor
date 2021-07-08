@@ -1,5 +1,5 @@
 # Mazor
-generating and resolving of mazes
+generating and resolving mazes
 
 # usage
 
