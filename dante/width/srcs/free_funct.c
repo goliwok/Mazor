@@ -13,9 +13,8 @@
 
 void	free_tab(int larg, int haut, char **map)
 {
-  int	i;
+  int	i = 0;
 
-  i = 0;
   while (i != haut)
   {
     free(map[i]);
@@ -26,9 +25,8 @@ void	free_tab(int larg, int haut, char **map)
 
 void	free_tab_int(int larg, int haut, int **map)
 {
-  int	i;
+  int	i = 0;
 
-  i = 0;
   while (i != haut)
   {
     free(map[i]);
@@ -37,23 +35,22 @@ void	free_tab_int(int larg, int haut, int **map)
   free(map);
 }
 
-void	free_struct(t_map *my_map, int larg, int haut)
+void	free_struct(t_map *map, int larg, int haut)
 {
-  int	i;
+  int	i = 0;
 
-  i = 0;
-  while (i != (larg*haut))
+  while (i != (larg * haut))
   {
-    free(my_map->save[i]);
+    free(map->save[i]);
     i++;
   }
-  free (my_map->save);
+  free (map->save);
 }
 
-void	free_all(t_map	*my_map, int larg, int haut)
+void	free_all(t_map	*map, int larg, int haut)
 {
-  free_tab(larg, haut+1, my_map->map);
-  free_tab_int(larg, haut+1, my_map->seen);
-  free_struct(my_map, larg+1, haut);
-  free(my_map);
+  free_tab(larg, haut + 1, map->map);
+  free_tab_int(larg, haut + 1, map->seen);
+  free_struct(map, larg + 1, haut);
+  free(map);
 }

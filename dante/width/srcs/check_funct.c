@@ -10,65 +10,55 @@
 
 #include	"../my_r.h"
 
-t_map	*find_path(t_map *my_map, int dir)
+t_map	*find_path(t_map *map, int dir)
 {
-  if (my_map->my_signal == 1)
+  if (map->my_signal == 1 || map->my_signal == 2)
   {
-    my_map->save[my_map->cmp_save-1]->dir = dir;
-    my_map->my_signal = 0;
+    map->save[map->cmp_save - 1]->dir = dir;
+    map->my_signal = 0;
   }
-  else if (my_map->my_signal == 2)
-  {
-    my_map->save[my_map->cmp_save-1]->dir = dir;
-    my_map->my_signal = 0;
-  }
-  return (my_map);
+  return (map);
 }
 
-int	check_nb_posr(t_map *my_map, int haut, int larg)
+int	check_nb_posr(t_map *map, int haut, int larg)
 {
-  int	x;
-  int	y;
-  int	cmp;
+  int	x = map->x;
+  int	y = map->y;
+  int	cmp = 0;
 
-  x = my_map->x;
-  y = my_map->y;
-  cmp = 0;
-  if (x-1 >= 0 && my_map->seen[y][x-1] == 0 && my_map->map[y][x-1] != 'X')
+  if (x - 1 >= 0 && map->seen[y][x - 1] == 0 && map->map[y][x - 1] != 'X')
     cmp++;
-  if (y-1 >= 0 && my_map->seen[y-1][x] == 0 && my_map->map[y-1][x] != 'X')
+  if (y - 1 >= 0 && map->seen[y - 1][x] == 0 && map->map[y - 1][x] != 'X')
     cmp++;
-  if (x+1 <= larg-1 && my_map->seen[y][x+1] == 0 && my_map->map[y][x+1] != 'X')
+  if (x + 1 <= larg - 1 && map->seen[y][x + 1] == 0 && map->map[y][x + 1] != 'X')
     cmp++;
-  if (y+1 <= haut-1 && my_map->seen[y+1][x] == 0 && my_map->map[y+1][x] != 'X')
+  if (y + 1 <= haut - 1 && map->seen[y + 1][x] == 0 && map->map[y + 1][x] != 'X')
     cmp++;
   return (cmp);
 }
 
-int	check_posr(int nb, t_map *my_map, int haut, int larg)
+int	check_posr(int nb, t_map *map, int haut, int larg)
 {
-  int	x;
-  int	y;
+  int	x = map->x;
+  int	y = map->y;
 
-  x = my_map->x;
-  y = my_map->y;
-  if (nb == 1 && x-1 >= 0)
+  if (nb == 1 && x - 1 >= 0)
   {
-    if (my_map->seen[y][x-1] == 0 && my_map->map[y][x-1] != 'X')
+    if (map->seen[y][x - 1] == 0 && map->map[y][x - 1] != 'X')
 	    return (1);
   }
-  else if (nb == 2 && y-1 >= 0)
+  else if (nb == 2 && y - 1 >= 0)
   {
-    if (my_map->seen[y-1][x] == 0 && my_map->map[y-1][x] != 'X')
+    if (map->seen[y - 1][x] == 0 && map->map[y - 1][x] != 'X')
 	    return (2);
   }
-  else if (nb == 3 && x+1 <= larg-1)
+  else if (nb == 3 && x + 1 <= larg - 1)
   {
-    if (my_map->seen[y][x+1] == 0 && my_map->map[y][x+1] != 'X')
+    if (map->seen[y][x + 1] == 0 && map->map[y][x + 1] != 'X')
 	    return (3);
   }
-  else if (y+1 <= haut-1)
-    if (my_map->seen[y+1][x] == 0 && my_map->map[y+1][x] != 'X')
+  else if (y + 1 <= haut - 1)
+    if (map->seen[y + 1][x] == 0 && map->map[y + 1][x] != 'X')
       return (4);
   return (0);
 }

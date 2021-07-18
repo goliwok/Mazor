@@ -7,42 +7,55 @@
 ## Started on  Sun Jan 17 23:54:41 2016 Henry Fumery (fumery_h)
 ## Last update Sun Jan 17 23:54:41 2016 Henry Fumery (fumery_h)
 ##
-DIR1=  ./generator/srcs/
-SRCS1=	$(DIR1)dante_lab.c 		\
-	$(DIR1)mal_funct.c		\
-	$(DIR1)init_lab.c		\
-	$(DIR1)free_funct.c 		\
-	$(DIR1)save.c			\
-	$(DIR1)check_funct.c 		\
-	$(DIR1)parf_lab_funct.c 	\
-	$(DIR1)impa_lab_funct.c 	\
+SAMPLE=	mazes_samples/testi1.txt
+GENERATOR_DIR=  ./generator/srcs/
+GENERATOR_SRCS=	$(GENERATOR_DIR)dante_lab.c 		\
+	$(GENERATOR_DIR)mal_funct.c		\
+	$(GENERATOR_DIR)init_lab.c		\
+	$(GENERATOR_DIR)free_funct.c 		\
+	$(GENERATOR_DIR)save.c			\
+	$(GENERATOR_DIR)check_funct.c 		\
+	$(GENERATOR_DIR)parf_lab_funct.c 	\
+	$(GENERATOR_DIR)impa_lab_funct.c 	\
 
-DIR2=	./width/srcs/
-SRCS2=	$(DIR2)resolve.c 		\
-	$(DIR2)mal_funct.c		\
-	$(DIR2)get_lab.c		\
-	$(DIR2)check_funct.c 		\
-	$(DIR2)save.c 			\
-	$(DIR2)draw_path.c 		\
-	$(DIR2)free_funct.c		\
+SOLVER_DIR=	./width/srcs/
+SOLVER_SRCS=	$(SOLVER_DIR)main.c 		\
+	$(SOLVER_DIR)mal_funct.c		\
+	$(SOLVER_DIR)get_lab.c		\
+	$(SOLVER_DIR)check_funct.c 		\
+	$(SOLVER_DIR)save.c 			\
+	$(SOLVER_DIR)draw_path.c 		\
+	$(SOLVER_DIR)free_funct.c		\
 
 CC= 	gcc
-OBJ1=	$(SRCS1:.c=.o)
-OBJ2=	$(SRCS2:.c=.o)
+GENERATOR_OBJ=	$(GENERATOR_SRCS:.c=.o)
+SOLVER_OBJ=	$(SOLVER_SRCS:.c=.o)
 
-NAME1=	./generator/generator
-NAME2=	./width/solver
+GENERATOR_NAME=	./generator/generator
+SOLVER_NAME=	./width/solver
 
-all:	$(NAME1) $(NAME2)
+all:	$(GENERATOR_NAME) $(SOLVER_NAME)
 
-$(NAME1):	$(OBJ1)
-		$(CC) -o $(NAME1) $(OBJ1)
+$(GENERATOR_NAME):	$(GENERATOR_OBJ)
+		$(CC) -o $(GENERATOR_NAME) $(GENERATOR_OBJ)
 
-$(NAME2):	$(OBJ2)
-		$(CC) -o $(NAME2) $(OBJ2)
+$(SOLVER_NAME):	$(SOLVER_OBJ)
+		$(CC) -o $(SOLVER_NAME) $(SOLVER_OBJ)
 
 clean:
-	@rm -f $(OBJ1) $(OBJ2)
+	@rm -f $(GENERATOR_OBJ) $(SOLVER_OBJ)
+
 fclean: clean
-	@rm -f $(NAME1) $(NAME2)
+	@rm -f $(GENERATOR_NAME) $(SOLVER_NAME)
+
 re:	fclean all
+
+run_test:
+	@$(SOLVER_NAME) $(SAMPLE)
+
+run_test_valgrind:
+	@valgrind $(SOLVER_NAME) $(SAMPLE)
+
+test: all run_test fclean
+
+test_valgrind: all run_test_valgrind fclean

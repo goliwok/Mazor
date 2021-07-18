@@ -10,28 +10,28 @@
 
 #include	"../my_r.h"
 
-t_map	*saver(t_map *my_map, int haut, int larg, int dir)
+t_map	*saver(t_map *map, int haut, int larg, int dir)
 {
-  if (check_nb_posr(my_map, haut, larg) > 1)
+  if (check_nb_posr(map, haut, larg) > 1)
   {
-    my_map->my_signal = 1;
-    my_map->save[my_map->cmp_save]->x = my_map->x;
-    my_map->save[my_map->cmp_save++]->y = my_map->y;
+    map->my_signal = 1;
+    map->save[map->cmp_save]->x = map->x;
+    map->save[map->cmp_save++]->y = map->y;
   }
-  else if (check_nb_posr(my_map, haut, larg) == 0)
+  else if (check_nb_posr(map, haut, larg) == 0)
   {
-    my_map->my_signal = 2;
-    my_map->x = my_map->save[my_map->cmp_save-1]->x;
-    my_map->y = my_map->save[my_map->cmp_save-1]->y;
+    map->my_signal = 2;
+    map->x = map->save[map->cmp_save-1]->x;
+    map->y = map->save[map->cmp_save-1]->y;
   }
-  if (check_nb_posr(my_map, haut, larg) == 0)
+  if (check_nb_posr(map, haut, larg) == 0)
   {
-    while (check_nb_posr(my_map, haut, larg) == 0)
+    while (check_nb_posr(map, haut, larg) == 0)
 	  {
-	    my_map->cmp_save--;
-	    my_map->x = my_map->save[my_map->cmp_save-1]->x;
-	    my_map->y = my_map->save[my_map->cmp_save-1]->y;
+	    map->cmp_save--;
+	    map->x = map->save[map->cmp_save-1]->x;
+	    map->y = map->save[map->cmp_save-1]->y;
 	  }
   }
-  return (my_map);
+  return (map);
 }

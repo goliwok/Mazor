@@ -14,22 +14,20 @@
 
 void	*my_mallocr(size_t size)
 {
-  void	*str;
+  void	*str = malloc(size);
 
-  str = malloc(size);
   if (str == NULL)
   {
     write(1, "error with malloc\n", 18);
-    exit (-1);
+    exit (EXIT_FAILURE);
   }
   return (str);
 }
 
 char	**malloc_tabr(int larg, int haut, char **map)
 {
-  int	i;
+  int	i = 0;
 
-  i = 0;
   map = my_mallocr(sizeof(char*) * (haut));
   while (i != haut)
   {
@@ -42,10 +40,9 @@ char	**malloc_tabr(int larg, int haut, char **map)
 
 int	**mal_tab_intr(int larg, int haut, int **map)
 {
-  int	i;
+  int	i = 0;
   int	j;
 
-  i = 0;
   map = my_mallocr(sizeof(int*) * (haut));
   while (i != haut)
   {
@@ -62,25 +59,24 @@ int	**mal_tab_intr(int larg, int haut, int **map)
   return (map);
 }
 
-t_map	*malloc_structr(t_map *my_map, int larg, int haut)
+t_map	*malloc_structr(t_map *map, int larg, int haut)
 {
-  int	i;
+  int	i = 0;
 
-  i = 0;
-  my_map->save = my_mallocr(sizeof(t_save*) * (larg*haut));
+  map->save = my_mallocr(sizeof(t_save*) * (larg*haut));
   while (i != (larg*haut))
   {
-    my_map->save[i] = my_mallocr(sizeof(t_save) + 2);
+    map->save[i] = my_mallocr(sizeof(t_save) + 2);
     i++;
   }
-  return (my_map);
+  return (map);
 }
 
-t_map	*alloc_allr(t_map *my_map, int larg, int haut)
+t_map	*alloc_allr(t_map *map, int larg, int haut)
 {
-  my_map = my_mallocr(sizeof(t_map) * 4);
-  my_map = malloc_structr(my_map, larg, haut);
-  my_map->seen = mal_tab_intr(larg, haut, my_map->seen);
-  my_map->map = malloc_tabr(larg, haut, my_map->map);
-  return (my_map);
+  map = my_mallocr(sizeof(t_map) * 4);
+  map = malloc_structr(map, larg, haut);
+  map->seen = mal_tab_intr(larg, haut, map->seen);
+  map->map = malloc_tabr(larg, haut, map->map);
+  return (map);
 }

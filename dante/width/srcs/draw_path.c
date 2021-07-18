@@ -13,52 +13,49 @@
 #include	<stdlib.h>
 #include	"../my_r.h"
 
-t_map	*init_draw_path(t_map *my_map, int larg, int haut)
+t_map	*init_draw_path(t_map *map, int larg, int haut)
 {
-  int	i;
+  int	i = 0;
   int	j;
 
-  i = 0;
   while (i != haut)
-    {
-      j = 0;
-      while (j != larg)
-	my_map->seen[i][j++] = 0;
-      i++;
-    }
-  my_map->x = 0;
-  my_map->y = 0;
-  my_map->seen[my_map->y][my_map->x] = 1;
-  my_map->cmp_lab = (larg * haut);
-  return (my_map);
+  {
+    j = 0;
+    while (j != larg)
+	    map->seen[i][j++] = 0;
+    i++;
+  }
+  map->x = 0;
+  map->y = 0;
+  map->seen[map->y][map->x] = 1;
+  map->cmp_lab = (larg * haut);
+  return (map);
 }
 
-t_map	*draw_path(t_map *my_map, int larg, int haut)
+t_map	*draw_path(t_map *map, int larg, int haut)
 {
-  int	i;
-  int	dir;
+  int	i = 0;
+  int	dir = 0;
   int	nb_rand;
 
-  i = 0;
-  dir = 0;
-  my_map = init_draw_path(my_map, larg, haut);
+  map = init_draw_path(map, larg, haut);
   srand(time(NULL));
-  while (my_map->x != larg-1 || my_map->y != haut-1)
+  while (map->x != larg - 1 || map->y != haut - 1)
   {
-    nb_rand = rand()%4+1;
-    my_map->map[my_map->y][my_map->x] = 'O';
-    if (check_nb_posr(my_map, haut, larg) > 1)
-	    dir = my_map->save[i++]->dir;
+    nb_rand = rand() % 4 + 1;
+    map->map[map->y][map->x] = 'O';
+    if (check_nb_posr(map, haut, larg) > 1)
+	    dir = map->save[i++]->dir;
     else
 	  {
-	    dir = check_posr(nb_rand, my_map, haut, larg);
+	    dir = check_posr(nb_rand, map, haut, larg);
 	    while (dir == 0)
-	      dir = check_posr(nb_rand = rand()%4+1, my_map, haut, larg);
+	      dir = check_posr(nb_rand = rand() % 4 + 1, map, haut, larg);
 	  }
-    my_map = change_posr(my_map, dir);
+    change_posr(map, dir);
   }
-  my_map->map[haut-1][larg-1] = 'O';
-  print_labr(my_map, larg, haut);
-  return (my_map);
+  map->map[haut - 1][larg - 1] = 'O';
+  print_maze(map, larg, haut);
+  return (map);
 }
 
