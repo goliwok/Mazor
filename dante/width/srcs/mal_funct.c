@@ -10,7 +10,7 @@
 
 #include	<stdlib.h>
 #include	<unistd.h>
-#include	"../my_r.h"
+#include	"../resolver.h"
 
 void	*my_mallocr(size_t size)
 {
@@ -24,59 +24,41 @@ void	*my_mallocr(size_t size)
   return (str);
 }
 
-char	**malloc_tabr(int larg, int haut, char **map)
+char	**malloc_tabr(char **map, int width, int height)
 {
-  int	i = 0;
-
-  map = my_mallocr(sizeof(char*) * (haut));
-  while (i != haut)
-  {
-    map[i] = NULL;
-    map[i] = my_mallocr(sizeof(char) * (larg));
-    i++;
-  }
+  map = my_mallocr(sizeof(char*) * (height));
+  for (int i = 0; i != height; i++)
+    map[i] = my_mallocr(sizeof(char) * (width));
   return (map);
 }
 
-int	**mal_tab_intr(int larg, int haut, int **map)
+int   **mal_tab_intr(int **map, int width, int height)
 {
-  int	i = 0;
-  int	j;
-
-  map = my_mallocr(sizeof(int*) * (haut));
-  while (i != haut)
+  map = my_mallocr(sizeof(int*) * (height));
+  for (int i = 0; i != height; i++)
   {
-    j = 0;
-    map[i] = NULL;
-    map[i] = my_mallocr(sizeof(int) * (larg));
-    while (j != larg)
-	  {
+    map[i] = my_mallocr(sizeof(int) * (width));
+    for (int j = 0; j != width; j++)
 	    map[i][j] = 0;
-	    j++;
-	  }
-    i++;
   }
   return (map);
 }
 
-t_map	*malloc_structr(t_map *map, int larg, int haut)
+t_map   *malloc_structr(t_map *map, int width, int height)
 {
   int	i = 0;
 
-  map->save = my_mallocr(sizeof(t_save*) * (larg*haut));
-  while (i != (larg*haut))
-  {
+  map->save = my_mallocr(sizeof(t_save*) * (width * height));
+  for (int i = 0; i != (width * height); i++)
     map->save[i] = my_mallocr(sizeof(t_save) + 2);
-    i++;
-  }
   return (map);
 }
 
-t_map	*alloc_allr(t_map *map, int larg, int haut)
+t_map	  *alloc_allr(t_map *map, int width, int height)
 {
   map = my_mallocr(sizeof(t_map) * 4);
-  map = malloc_structr(map, larg, haut);
-  map->seen = mal_tab_intr(larg, haut, map->seen);
-  map->map = malloc_tabr(larg, haut, map->map);
+  map = malloc_structr(map, width, height);
+  map->seen = mal_tab_intr(map->seen, width, height);
+  map->map = malloc_tabr(map->map, width, height);
   return (map);
 }

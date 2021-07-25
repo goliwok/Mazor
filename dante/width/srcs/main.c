@@ -11,7 +11,7 @@
 #include	<time.h>
 #include	<stdio.h>
 #include	<stdlib.h>
-#include	"../my_r.h"
+#include	"../resolver.h"
 
 void printf_red(char point) {
   printf("\033[1;31m");
@@ -19,17 +19,17 @@ void printf_red(char point) {
   printf("\033[0m");
 }
 
-void	print_maze(t_map *map, int larg, int haut)
+void	print_maze(t_map *map, int width, int height)
 {
   int	i;
   int	j = 0;
 
-  while (j != haut)
+  while (j != height)
   {
     i = 0;
-    while (i != larg)
+    while (i != width)
 	  {
-      (map->map[j][i] == 'O') ? printf_red('O') : printf("%c", map->map[j][i]); 
+      (map->map[j][i] == 'O') ? printf_red('O') : printf("%c", map->map[j][i]);
 	    i++;
 	  }
     printf("\n");
@@ -39,19 +39,25 @@ void	print_maze(t_map *map, int larg, int haut)
 
 void	change_posr(t_map *map, int nb)
 {
-  if (nb == 1)
-    map->x -= 1;
-  else if (nb == 2)
-    map->y -= 1;
-  else if (nb == 3)
-    map->x += 1;
-  else
-    map->y += 1;
+  switch (nb)
+  {
+    case 1:
+      map->x--;
+      break;
+    case 2:
+      map->y--;
+      break;
+    case 3:
+      map->x++;
+      break;
+    default:
+      map->y++;
+      break;
+  }
   map->seen[map->y][map->x] = 1;
-  // return (map);
 }
 
-void	resolve_maze(t_map *map, int haut, int larg)
+void	resolve_maze(t_map *map, int height, int width)
 {
   int	nb_rand;
   int	dir;
@@ -61,24 +67,20 @@ void	resolve_maze(t_map *map, int haut, int larg)
   map->x = 0;
   map->y = 0;
   map->seen[map->y][map->x] = 1;
-  map->cmp_lab = (larg * haut);
+  map->cmp_lab = (width * height);
 
-  while ((map->x != larg - 2 || map->y != larg - 1)
-    && (map->x != larg-1 || map->y != larg - 2))
+  while (map->x != width - 2 || map->y != width - 1)
   {
-    nb_rand = rand() % 4 + 1;
-    dir = check_posr(nb_rand, map, haut, larg);
-    while (dir == 0)
-	  {
+    do {
 	    nb_rand = rand() % 4 + 1;
-	    dir = check_posr(nb_rand, map, haut, larg);
-	  }
+	    dir = check_posr(nb_rand, map, height, width);
+	  } while (dir == 0);
     map = find_path(map, dir);
     change_posr(map, dir);
-    map = saver(map, haut, larg, dir);
+    map = saver(map, height, width, dir);
   }
-  map = draw_path(map, larg, haut);
-  free_all(map, haut, larg);
+  map = draw_path(map, width, height);
+  free_all(map, height, width);
 }
 
 int	main(int ac, char **av)

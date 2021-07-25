@@ -37,10 +37,10 @@ SOLVER_NAME=	./width/solver
 all:	$(GENERATOR_NAME) $(SOLVER_NAME)
 
 $(GENERATOR_NAME):	$(GENERATOR_OBJ)
-		$(CC) -o $(GENERATOR_NAME) $(GENERATOR_OBJ)
+		$(CC) -fno-asm -std=c11 -Wall -Wextra -o $(GENERATOR_NAME) $(GENERATOR_OBJ)
 
 $(SOLVER_NAME):	$(SOLVER_OBJ)
-		$(CC) -o $(SOLVER_NAME) $(SOLVER_OBJ)
+		$(CC) -fno-asm -std=c11 -Wall -Wextra -o $(SOLVER_NAME) $(SOLVER_OBJ)
 
 clean:
 	@rm -f $(GENERATOR_OBJ) $(SOLVER_OBJ)

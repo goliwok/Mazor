@@ -11,7 +11,7 @@
 #include	<time.h>
 #include	<stdio.h>
 #include	<stdlib.h>
-#include	"../my_r.h"
+#include	"../resolver.h"
 
 t_map	*init_draw_path(t_map *map, int larg, int haut)
 {

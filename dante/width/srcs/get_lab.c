@@ -10,21 +10,16 @@
 
 #include	<stdio.h>
 #include	<stdlib.h>
-#include	"../my_r.h"
+#include	"../resolver.h"
 
-char	*get_cara(char *get, char *put, int size)
+char	*get_char(char *get, char *put, int size)
 {
-  int	x = 0;
-
-  while (x != size)
-  {
+  for (int x = 0; x != size; x++)
     get[x] = put[x];
-    x++;
-  }
   return (get);
 }
 
-t_map	*get_lab(t_map *map, FILE *fd, char *file_name, int larg)
+t_map	*get_maze(t_map *map, FILE *fd, char *file_name, int width)
 {
   ssize_t	read;
   size_t	len = 0;
@@ -36,7 +31,7 @@ t_map	*get_lab(t_map *map, FILE *fd, char *file_name, int larg)
     exit(EXIT_FAILURE);
   while ((read = getline(&line, &len, fd)) != -1)
   {
-    map->map[cmp] = get_cara(map->map[cmp], line, larg);
+    map->map[cmp] = get_char(map->map[cmp], line, width);
     cmp++;
   }
   if (line)
@@ -49,18 +44,18 @@ t_map	*get_content(char *line, FILE *fd, size_t len, char *file_name)
 {
   ssize_t	read;
   t_map		*map = NULL;
-  int		larg = 0;
+  int		width = 0;
   int		haut;
 
   while ((read = getline(&line, &len, fd)) != -1)
   {
-    larg++;
+    width++;
     haut = (int)read;
   }
-  map = alloc_allr(map, larg, haut);
+  map = alloc_allr(map, width, haut);
   map->y = haut-1;
-  map->x = larg;
-  map = get_lab(map, fd, file_name, larg);
+  map->x = width;
+  map = get_maze(map, fd, file_name, width);
   free(line);
   return (map);
 }

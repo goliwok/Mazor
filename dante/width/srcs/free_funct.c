@@ -9,48 +9,26 @@
 */
 
 #include	<stdlib.h>
-#include	"../my_r.h"
+#include	"../resolver.h"
 
-void	free_tab(int larg, int haut, char **map)
+void	free_tab(void **map, int width, int height)
 {
-  int	i = 0;
-
-  while (i != haut)
-  {
+  for (int	i = 0; i != height; i++)
     free(map[i]);
-    i++;
-  }
   free(map);
 }
 
-void	free_tab_int(int larg, int haut, int **map)
+void	free_struct(t_map *map, int width, int height)
 {
-  int	i = 0;
-
-  while (i != haut)
-  {
-    free(map[i]);
-    i++;
-  }
-  free(map);
-}
-
-void	free_struct(t_map *map, int larg, int haut)
-{
-  int	i = 0;
-
-  while (i != (larg * haut))
-  {
+  for (int i = 0; i != (width * height); i++)
     free(map->save[i]);
-    i++;
-  }
   free (map->save);
 }
 
-void	free_all(t_map	*map, int larg, int haut)
+void	free_all(t_map	*map, int width, int height)
 {
-  free_tab(larg, haut + 1, map->map);
-  free_tab_int(larg, haut + 1, map->seen);
-  free_struct(map, larg + 1, haut);
+  free_tab((void*) map->map, width, height + 1);
+  free_tab((void*) map->seen, width, height + 1);
+  free_struct(map, width + 1, height);
   free(map);
 }

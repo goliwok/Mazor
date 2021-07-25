@@ -8,7 +8,7 @@
 ** Last update Sun May 22 19:44:23 2016 henry fumery
 */
 
-#include	"../my_r.h"
+#include	"../resolver.h"
 
 t_map	*find_path(t_map *map, int dir)
 {
